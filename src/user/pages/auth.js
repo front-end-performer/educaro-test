@@ -9,6 +9,10 @@ const useStyles = makeStyles((theme) => ({
 	root: {
 		height: "100vh",
 	},
+	wrapper: {
+		border: "1px solid red",
+		height: "100%",
+	},
 }));
 
 export default function CenteredGrid() {
@@ -16,7 +20,13 @@ export default function CenteredGrid() {
 
 	return (
 		<Grid container alignItems="center" className={classes.root}>
-			<Grid item container xs={12} justify="center" alignItems="center">
+			<Grid
+				item
+				container
+				xs={12}
+				justify="center"
+				alignItems="center"
+				className={classes.wrapper}>
 				<Display />
 			</Grid>
 		</Grid>
