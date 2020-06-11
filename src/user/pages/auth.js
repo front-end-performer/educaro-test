@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
 		height: "100vh",
 	},
 	wrapper: {
-		border: "1px solid red",
+		// border: "1px solid red",
 		height: "100%",
 	},
 }));

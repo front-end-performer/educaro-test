@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 	display_container: {
 		height: "100%",
-		border: "1px solid red",
+		// border: "1px solid red",
 	},
 	imageContainer: {
 		position: "absolute",
@@ -82,11 +82,12 @@ const Display = (props) => {
 							error={inputValue !== "" && !isValid}
 							id="outlined-error-helper-text"
 							label="your pin"
+							maxLength="4"
 							value={inputValue}
 							helperText={
 								inputValue !== "" && !isValid
 									? "Only numbers required."
-									: inputValue.length > 4
+									: inputValue.length > 3 && !inputs
 									? "wrong pin code"
 									: ""
 							}
