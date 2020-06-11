@@ -10,7 +10,6 @@ export function charectersValMiddleware({ dispatch }) {
 			// do your stuff
 			if (action.type === USERS_ENTRY) {
 				const correctInput = isNumber.test(action.payload);
-
 				if (action.payload !== "" && correctInput === false) {
 					return dispatch({ type: NOT_VALID });
 				}

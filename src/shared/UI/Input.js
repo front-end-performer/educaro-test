@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { Grid, Paper, TextField } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { usersInput } from "../../redux/actions";
+import { PIN_LENGTH } from "../../redux/constants";
+import { Animated } from "react-animated-css";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -15,20 +17,12 @@ const useStyles = makeStyles((theme) => ({
 		display: "flex",
 		justifyContent: "center",
 	},
-	display_container: {
-		height: "100%",
-		// border: "1px solid red",
-	},
-	imageContainer: {
-		position: "absolute",
-		top: "15%",
-	},
-	image: {
-		maxWidth: "100%",
+	inputContainer: {
+		paddingTop: 40,
 	},
 }));
 
-const Display = (props) => {
+const Input = () => {
 	const classes = useStyles();
 	const dispatch = useDispatch();
 	const [inputValue, setInputValue] = useState("");
@@ -46,8 +40,6 @@ const Display = (props) => {
 		}
 	}, [inputValue]);
 
-	console.log("inputs ==>", inputs);
-
 	const handleChange = (event) => {
 		setInputValue(event.target.value);
 	};
@@ -58,43 +50,36 @@ const Display = (props) => {
 			direction="column"
 			justify="center"
 			alignItems="center"
-			className={classes.display_container}>
-			<Grid
-				item
-				container
-				justify="center"
-				alignItems="center"
-				xs={6}
-				className={classes.imageContainer}>
-				{inputs && (
-					<img
-						className={classes.image}
-						src="https://www.educaro.de/images/logo.png"
-						alt="educaro"
-					/>
-				)}
-			</Grid>
-			<br />
+			className={classes.inputContainer}>
 			<Grid item>
 				<form noValidate autoComplete="off" spacing={2}>
-					<div>
-						<TextField
-							error={inputValue !== "" && !isValid}
-							id="outlined-error-helper-text"
-							label="your pin"
-							maxLength="4"
-							value={inputValue}
-							helperText={
-								inputValue !== "" && !isValid
-									? "Only numbers required."
-									: inputValue.length > 3 && !inputs
-									? "wrong pin code"
-									: ""
-							}
-							variant="outlined"
-							onChange={handleChange}
-						/>
-					</div>
+					<Animated
+						animationIn="bounceInLeft"
+						animationOut="fadeOut"
+						isVisible={true}>
+						<div
+							className={inputValue.length >= PIN_LENGTH && !inputs && "anim"}>
+							<TextField
+								error={inputValue !== "" && !isValid}
+								id="outlined-error-helper-text"
+								label="your pin"
+								type="password"
+								inputProps={{
+									maxLength: PIN_LENGTH,
+								}}
+								value={inputValue}
+								helperText={
+									inputValue !== "" && !isValid
+										? "Only numbers required."
+										: inputValue.length >= PIN_LENGTH && !inputs
+										? "Wrong pin code. Try again."
+										: ""
+								}
+								variant="outlined"
+								onChange={handleChange}
+							/>
+						</div>
+					</Animated>
 				</form>
 			</Grid>
 		</Grid>
@@ -116,4 +101,4 @@ const Display = (props) => {
 		// </Grid> */}
 	);
 };
-export default Display;
+export default Input;
